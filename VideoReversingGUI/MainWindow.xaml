@@ -1,0 +1,16 @@
+﻿<Window x:Name="___无名称_" x:Class="VideoReversingGUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VideoReversingGUI"
+        mc:Ignorable="d"
+        Title="Video reversing" Height="200" Width="360" ResizeMode="CanMinimize">
+    <Grid>
+        <Button x:Name="SelectButton" HorizontalAlignment="Left" Margin="275,67,0,0" VerticalAlignment="Top" Content="浏览" Width="42" FontSize="14" Height="24" Click="SelectButton_Click"/>
+        <TextBlock HorizontalAlignment="Left" Margin="40,25,0,0" TextWrapping="Wrap" Text="将视频倒放并衔接到原视频 (可选)" VerticalAlignment="Top" FontSize="16"/>
+        <TextBox x:Name="PathText" Margin="40,70,0,0" Width="200" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Button x:Name="ReverseButton" Content="倒放" HorizontalAlignment="Left" Margin="90,115,0,0" VerticalAlignment="Top" FontSize="14" Height="24" Width="40" Click="ReverseButton_Click"/>
+        <Button x:Name="RevComButton" Content="倒放并拼接" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="14" Height="24" Margin="0,115,90,0" Width="80"/>
+    </Grid>
+</Window>

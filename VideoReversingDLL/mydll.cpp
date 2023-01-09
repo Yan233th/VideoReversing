@@ -47,7 +47,8 @@ string GetFileName (string input)
 {
     int length = input.size ();
     int begin = 0;
-    if (input.rfind ('/') != string::npos) begin = input.rfind ('/') + 1;
+    if (input.rfind ('/') != string::npos)
+        begin = input.rfind ('/') + 1;
     string fileName = input.substr (begin, length - begin);
     return fileName;
 }
@@ -56,7 +57,8 @@ string GetFilePath (string input)
 {
     int length = input.size ();
     int end = 0;
-    if (input.rfind ('/') != string::npos) end = input.rfind ('/');
+    if (input.rfind ('/') != string::npos)
+        end = input.rfind ('/');
     string filePath = input.substr (0, end + 1);
     return filePath;
 }

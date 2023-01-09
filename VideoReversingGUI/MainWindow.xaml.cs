@@ -47,6 +47,8 @@ namespace VideoReversingGUI
             MessageBox.Show ("处理即将开始，请勿重复点击按钮并耐心等待，文件夹中可能有临时文件出现。");
             if (VideoReverse (originalVideoPath) == true)
                 MessageBox.Show ("输入路径或文件格式有误!");
+            else
+                MessageBox.Show ("已完成!");
             //IntPtr filePath = GetFilePath (originalVideoPath);
             //PathText.Text = Marshal.PtrToStringAnsi (filePath);
         }

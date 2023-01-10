@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Management.Instrumentation;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -27,12 +28,9 @@ namespace VideoReversingGUI
         {
             InitializeComponent ();
         }
-        ////[DllImport ("VideoReversingDLL.dll")]
-        ////static extern IntPtr GetFileName (string input);
-        ////[DllImport ("VideoReversingDLL.dll")]
-        ////static extern IntPtr GetFilePath (string input);
+        private delegate void DllCallBack (bool status);
         [DllImport ("VideoReversingDLL.dll")]
-        static extern bool VideoReverse (string input);
+        private static extern bool VideoReverse (string input, DllCallBack CallBack);
         private void SelectButton_Click (object sender, RoutedEventArgs e)
         {
             OpenFileDialog dialog= new OpenFileDialog ();
@@ -41,16 +39,24 @@ namespace VideoReversingGUI
                 PathText.Text = dialog.FileName;
             }
         }
+        private void ThreadCallBackProcess (bool status)
+        {
+            if (status == true)
+                MessageBox.Show ("输入路径或文件格式有误!");
+            else
+                MessageBox.Show ("已完成!");
+        }
         private void ReverseButton_Click (object sender, RoutedEventArgs e)
         {
             string originalVideoPath = PathText.Text.Replace ("\\", "/");
             MessageBox.Show ("处理即将开始，请勿重复点击按钮并耐心等待，文件夹中可能有临时文件出现。");
-            if (VideoReverse (originalVideoPath) == true)
-                MessageBox.Show ("输入路径或文件格式有误!");
-            else
-                MessageBox.Show ("已完成!");
-            //IntPtr filePath = GetFilePath (originalVideoPath);
-            //PathText.Text = Marshal.PtrToStringAnsi (filePath);
+            Thread operate = new Thread (() => VideoReverse (originalVideoPath, ThreadCallBackProcess));
+            operate.Start ();
+        }
+
+        private void RevComButton_Click (object sender, RoutedEventArgs e)
+        {
+            Thread.Sleep (1000);
         }
     }
 }

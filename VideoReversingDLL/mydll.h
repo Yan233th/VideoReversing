@@ -8,4 +8,5 @@
 
 //extern "C" API_SYMBOL char* GetFileName (char* input);
 //extern "C" API_SYMBOL char* GetFilePath (char* input);
-extern "C" API_SYMBOL bool VideoReverse (char* input);
+extern "C" API_SYMBOL void VideoReverse (char* input, void (*CallBack) (bool status));
+//extern "C" API_SYMBOL void ReturnValue (void (*CallBack) (bool status), bool status);

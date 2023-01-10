@@ -54,26 +54,28 @@ void VideoReverse (char* input, void (*CallBack) (int status))
 
 void VideoRevCom (char* input, void (*CallBack) (int status))
 {
+    bool flag = false;
     string path = input;
     string filePath = GetFilePath (path);
     string command1 = "ffmpeg.exe -y -i " + path + " " + filePath + "original-temp.ts";
     int status1 = system (command1.c_str ());
+    if (status1 != 0) {CallBack (-1); return;}
     string command2 = "ffmpeg.exe -y -i " + path + " -vf reverse -af areverse " + filePath + "reversed-temp.ts";
     int status2 = system (command2.c_str ());
+    if (status2 != 0) {CallBack (-1); return;}
     FILE *fp = NULL;
     string txtPath = filePath + "templist.txt";
     int status3 = fopen_s (&fp, txtPath.c_str (), "w+");
-    //fprintf (fp, GetFileName (path).c_str ());
+    if (status3 != 0) {CallBack (-1); return;}
     string inputText = "file '" + filePath + "original-temp.ts'\nfile '" + filePath + "reversed-temp.ts'";
     fprintf (fp, inputText.c_str ());
     fclose (fp);
     string command3 = "ffmpeg.exe -y -f concat -safe 0 -i \"" + filePath + "templist.txt\" \"" + filePath + "output.mp4\"";
     int status4 = system (command3.c_str ());
-    //fprintf (fp, ("\n" + command3).c_str ());
-    if (status1 == 0 && status2 == 0 && status3 == 0 && status4 == 0)
-        CallBack (0);
-    else
-        CallBack (-1);
-    //CallBack (status2);
+    if (status4 != 0) {CallBack (-1); return;}
+    remove ((filePath + "original-temp.ts").c_str ());
+    remove ((filePath + "reversed-temp.ts").c_str ());
+    remove ((filePath + "templist.txt").c_str ());
+    CallBack (0);
     return;
 }

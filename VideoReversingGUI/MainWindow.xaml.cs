@@ -35,10 +35,8 @@ namespace VideoReversingGUI
         private static extern int VideoRevCom (string input, DllCallBack CallBack);
         private void ThreadCallBackProcess (int status)
         {
-            if (status == 0)
-                MessageBox.Show ("已完成!");
-            else
-                MessageBox.Show ("输入路径或文件格式有误!");
+            if (status == 0) MessageBox.Show ("已完成!");
+            else MessageBox.Show ("输入路径或文件格式有误!");
             MainWindow1.Dispatcher.Invoke (new Action (delegate {MainWindow1.IsEnabled = true;}));
         }
         private void SelectButton_Click (object sender, RoutedEventArgs e)
